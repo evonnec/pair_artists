@@ -25,5 +25,12 @@ Your solution MAY return a best guess, i.e. pairs which appear at least 50 times
 Please provide written instructions for how to build, compile and run your code. Please no Jupyter notebooks.
 
 ## Instructions:
-1. Run `python artist_pairs_50.py artist_lists_small artist_tuple` where artist_lists_small is the name of the txt file given, and artist_tuple is the name of the csv output required.
-2. the python file, the input file, and the output file should all be in the same directory.
+1. Run `python artist_pairs.py artist_lists_small artist_tuple 50` where :
+- artist_lists_small is the name of the txt file given, and 
+- artist_tuple is the name of the csv output, and
+- 50 is the positive integer number of pairs we want to display in the output
+(Optional: activate a python virtual environment beforehand: i.e. conda activate base or create one that is specific to the project)
+
+2. the python files, the input file, and the output file should all be in the same directory.
+
+3. to run the tests, run `pytest` in that same directory. This test suite could be expanded.

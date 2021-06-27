@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 from csv import reader, writer
-from typing import List
+from typing import List, Tuple, DefaultDict, Set
 from collections import defaultdict
 from sys import argv
 
@@ -18,7 +18,10 @@ from sys import argv
     ## loads them into a data structure we can use
 
 
-def _make_dict(input_file: str) -> None:
+def make_dict(
+    input_file: str, 
+    pair_num: int
+    ) -> DefaultDict[str, Set[int]]:
     with open(input_file, mode='r', newline='') as input_data:
         csvreader = reader(input_data, delimiter='\n')
         output_dict = defaultdict(set)
@@ -28,28 +31,42 @@ def _make_dict(input_file: str) -> None:
             for artist in artist_str.split(','):
                 output_dict[artist].add(line_count)
             line_count += 1
-        reduced_output_dict = defaultdict(set, {k: v for k, v in output_dict.items() if len(v) >= 50})
+        reduced_output_dict = defaultdict(set, {k: v for k, v in output_dict.items() if len(v) >= pair_num})
         return reduced_output_dict
 
-def _make_artist_pairs(potential_pairs: defaultdict(set)) -> List[tuple]:
+def make_artist_pairs(
+    potential_pairs: DefaultDict[str, Set[int]], 
+    pair_num: int
+    ) -> List[Tuple[str, str]]:
     pair_tuple = []
     for k, v in potential_pairs.items():
         for key, value in potential_pairs.items():
-            if key != k and len(v.intersection(value)) >= 50:
+            if key != k and len(v.intersection(value)) >= pair_num:
                 pair_tuple.append((k, key))
     return pair_tuple
 
-def _write_tuple(output_file: str, pairs: List[tuple]) -> None:
+def write_tuple(
+    output_file: str, 
+    pairs: List[Tuple[str, str]]
+    ) -> None:
     with open(output_file, mode='w', newline='') as output_data_file:
         _ = writer(output_data_file, delimiter='\n')
         for pair in pairs:
             line = ",".join(pair) + "\n"
             output_data_file.write(line)
 
-def pair_artists(artists_input_file: str, artists_output_file: str) -> None:
-    artist_dict = _make_dict(artists_input_file)
-    artist_pairs = _make_artist_pairs(artist_dict)
-    _write_tuple(artists_output_file, artist_pairs)
+def pair_artists(
+    artists_input_file: str, 
+    artists_output_file: str, 
+    pair_num: int
+    ) -> None:
+    artist_dict = make_dict(artists_input_file, pair_num)
+    artist_pairs = make_artist_pairs(artist_dict, pair_num)
+    write_tuple(artists_output_file, artist_pairs)
 
 if __name__ == "__main__":
-    pair_artists(artists_input_file="./" + argv[1] + ".txt", artists_output_file="./" + argv[2] + ".csv")
+    pair_artists(
+        artists_input_file="./" + argv[1] + ".txt", 
+        artists_output_file="./" + argv[2] + ".csv", 
+        pair_num = int(argv[3])   
+    )
