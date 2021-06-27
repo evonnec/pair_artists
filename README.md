@@ -33,4 +33,4 @@ Please provide written instructions for how to build, compile and run your code.
 
 2. the python files, the input file, and the output file should all be in the same directory.
 
-3. to run the tests, run `pytest` in that same directory. This test suite could be expanded.
+3. to run the tests, run `pytest` in that same directory. This test suite could be expanded as it's really lightweight at the moment. It could also be built to take in the parameters. however the expected output would need to determined ahead of time in order to make assertions. Steps here: https://docs.pytest.org/en/6.2.x/example/simple.html#pass-different-values-to-a-test-function-depending-on-command-line-options
