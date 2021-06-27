@@ -8,14 +8,15 @@ from sys import argv
     ## open the csv file, 
     ## for each line, add the line number to a defaultdict(set) in which the artist is the key
     ## the lists on which the artist appears are numbered in a set (which is the value of the defaultdict)
-    ## setify the intersection between the first artist and every other artist in which the length >= 50 
+    ## setify the intersection between the first artist and every other artist in which the length >= 50/
     ## since the artists both have to intersect on 50 lists, reduce the dict if the len(values) < 50
     ## before even making pairs. This is to speed up run time for the next function.
-    ## make the artist pairs such that we only add the to the list of tuples if
-    ## there are fifty intersection values between artists.
-    ## deconstruct that list of tuples and place in a csv
-    ## each function does one thing except the first which opens the input file and 
-    ## loads them into a data structure we can use
+    ## make the artist pairs such that we only add them to the list of tuples if
+    ## there are 50 intersection values between artists. The number 50 is configurable at the command line
+    ## for extensibility of the codebase.
+    ## The next functions deconstruct that list of tuples and place in a csv with a comma delimiter and newline.
+    ## Each function does one thing except the first which opens the input file and 
+    ## loads them into a data structure we can use. This allows for clean code.
 
 
 def make_dict(
