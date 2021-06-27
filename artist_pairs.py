@@ -17,6 +17,7 @@ from sys import argv
     ## The next functions deconstruct that list of tuples and place in a csv with a comma delimiter and newline.
     ## Each function does one thing except the first which opens the input file and 
     ## loads them into a data structure we can use. This allows for clean code.
+    ## I use mypy --strict to enforce types as input and output here, but in test_artist_pairs.py just mypy
 
 
 def make_dict(
