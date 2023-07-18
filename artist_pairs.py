@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 from csv import reader, writer
-from typing import List, Tuple, DefaultDict, Set
+from typing import DefaultDict, Set, Tuple
 from collections import defaultdict
 from sys import argv
 
@@ -39,17 +39,17 @@ def make_dict(
 def make_artist_pairs(
     potential_pairs: DefaultDict[str, Set[int]], 
     pair_num: int
-    ) -> List[Tuple[str, str]]:
-    pair_tuple = []
+    ) -> Set[Tuple[str, str]]:
+    pair_set = set()
     for k, v in potential_pairs.items():
         for key, value in potential_pairs.items():
             if key != k and len(v.intersection(value)) >= pair_num:
-                pair_tuple.append((k, key))
-    return pair_tuple
+                pair_set.add((k, key))
+    return pair_set
 
 def write_tuple(
     output_file: str, 
-    pairs: List[Tuple[str, str]]
+    pairs: Set[Tuple[str, str]]
     ) -> None:
     with open(output_file, mode='w', newline='') as output_data_file:
         _ = writer(output_data_file, delimiter='\n')
